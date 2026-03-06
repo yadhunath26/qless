@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Root layout: all 3 screens live here, only one is VISIBLE at a time -->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- SCREEN 1 : Welcome / Scan -->
+    <include
+        android:id="@+id/screenWelcome"
+        layout="@layout/activity_welcome"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible" />
+
+    <!-- SCREEN 2 : Active Cart Session -->
+    <include
+        android:id="@+id/screenCart"
+        layout="@layout/activity_cart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <!-- SCREEN 3 : Bill Summary -->
+    <include
+        android:id="@+id/screenBill"
+        layout="@layout/activity_bill"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+</FrameLayout>
