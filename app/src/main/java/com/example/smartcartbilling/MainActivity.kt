@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     // ── App State ──
     private val database = FirebaseDatabase
-        .getInstance("https://shopping-cart-22ab6-default-rtdb.asia-southeast1.firebasedatabase.app")
+        .getInstance("https://qless-be82a-default-rtdb.firebaseio.com/")
         .getReference("cartEvents")
 
     private var bluetoothGatt: BluetoothGatt? = null

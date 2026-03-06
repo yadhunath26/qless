@@ -34,12 +34,16 @@
 
     <application
         android:allowBackup="true"
-        android:label="SmartCart Billing"
+        android:label="QLess"
         android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
 
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustResize"
+            android:exported="true" />
+
+        <activity
+            android:name=".LoginActivity"
             android:exported="true">
 
             <intent-filter>

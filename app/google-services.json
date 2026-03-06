@@ -1,26 +1,45 @@
 {
   "project_info": {
-    "project_number": "257500555058",
-    "project_id": "shopping-cart-22ab6",
-    "storage_bucket": "shopping-cart-22ab6.firebasestorage.app"
+    "project_number": "472750988269",
+    "firebase_url": "https://qless-be82a-default-rtdb.firebaseio.com",
+    "project_id": "qless-be82a",
+    "storage_bucket": "qless-be82a.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:257500555058:android:347ebf6029c9be30dc992b",
+        "mobilesdk_app_id": "1:472750988269:android:278c536e146c2e89b465e4",
         "android_client_info": {
           "package_name": "com.example.smartcartbilling"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "472750988269-6icij26ieb6r0p4aa6u0oecv877acpc4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.smartcartbilling",
+            "certificate_hash": "4c0846cbd2c8d57143cc26c69ddfd4a8dc5c950e"
+          }
+        },
+        {
+          "client_id": "472750988269-5bdh9h3h7optue7014k535riilhiipkf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyCc_wTnQOXynkoUTtIvlEewdy5UVY0ikU4"
+          "current_key": "AIzaSyClkFLJ7HCo_19FiUkUKn82TN8z6Yc7O5g"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "472750988269-5bdh9h3h7optue7014k535riilhiipkf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
