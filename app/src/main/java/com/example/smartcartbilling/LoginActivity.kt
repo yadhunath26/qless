@@ -23,8 +23,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var btnGoogleSignIn: MaterialButton
     private lateinit var txtLoginStatus: TextView
 
-    // ── Put your Gmail here to get admin access ──
-    private val ADMIN_EMAIL = "yadhuvalorant@gmail.com"
+    // ⚠️ Change this to your admin Gmail
+    private val ADMIN_EMAIL = "vishnushanu.24748@gmail.com"
 
     private val RC_SIGN_IN = 9001
 
@@ -34,16 +34,15 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        // If already signed in, skip login screen
+        // Already signed in — route to correct screen
         if (auth.currentUser != null) {
-            goToMain()
+            routeUser(auth.currentUser!!.email ?: "")
             return
         }
 
         btnGoogleSignIn  = findViewById(R.id.btnGoogleSignIn)
         txtLoginStatus   = findViewById(R.id.txtLoginStatus)
 
-        // Configure Google Sign-In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -51,25 +50,22 @@ class LoginActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        btnGoogleSignIn.setOnClickListener {
-            signIn()
-        }
+        btnGoogleSignIn.setOnClickListener { signIn() }
     }
 
     private fun signIn() {
         btnGoogleSignIn.isEnabled = false
         txtLoginStatus.visibility = View.VISIBLE
         txtLoginStatus.text = "Signing in…"
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        startActivityForResult(googleSignInClient.signInIntent, RC_SIGN_IN)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                val account = task.getResult(ApiException::class.java)
+                val account = GoogleSignIn.getSignedInAccountFromIntent(data)
+                    .getResult(ApiException::class.java)
                 firebaseAuthWithGoogle(account)
             } catch (e: ApiException) {
                 txtLoginStatus.text = "Sign-in failed. Try again."
@@ -85,10 +81,10 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    val email = user?.email ?: ""
-                    val name  = user?.displayName ?: "User"
-                    val uid   = user?.uid ?: ""
+                    val user    = auth.currentUser
+                    val email   = user?.email ?: ""
+                    val name    = user?.displayName ?: "User"
+                    val uid     = user?.uid ?: ""
                     val isAdmin = email == ADMIN_EMAIL
 
                     // Save user profile to Firebase
@@ -96,16 +92,11 @@ class LoginActivity : AppCompatActivity() {
                         .getInstance("https://qless-be82a-default-rtdb.firebaseio.com/")
                         .getReference("users/$uid")
 
-                    val userMap = mapOf(
-                        "name"    to name,
-                        "email"   to email,
-                        "isAdmin" to isAdmin
-                    )
-
-                    db.setValue(userMap).addOnCompleteListener {
-                        txtLoginStatus.text = "Welcome, $name!"
-                        goToMain()
-                    }
+                    db.setValue(mapOf("name" to name, "email" to email, "isAdmin" to isAdmin))
+                        .addOnCompleteListener {
+                            txtLoginStatus.text = "Welcome, $name!"
+                            routeUser(email)
+                        }
                 } else {
                     txtLoginStatus.text = "Authentication failed. Try again."
                     btnGoogleSignIn.isEnabled = true
@@ -113,8 +104,13 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    private fun goToMain() {
-        startActivity(Intent(this, MainActivity::class.java))
+    // ── Route: admin → AdminActivity, others → MainActivity ──
+    private fun routeUser(email: String) {
+        val intent = if (email == ADMIN_EMAIL)
+            Intent(this, AdminActivity::class.java)
+        else
+            Intent(this, MainActivity::class.java)
+        startActivity(intent)
         finish()
     }
 }

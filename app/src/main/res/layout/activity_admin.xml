@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F8FA">
+
+    <!-- Header -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/adminAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0F172A"
+        app:elevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="52dp"
+            android:paddingBottom="20dp">
+
+            <!-- Top row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ADMIN PANEL"
+                        android:textSize="10sp"
+                        android:letterSpacing="0.16"
+                        android:textStyle="bold"
+                        android:textColor="#94A3B8" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="QLess Dashboard"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
+                        android:letterSpacing="-0.02" />
+                </LinearLayout>
+
+                <!-- Sign out button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAdminSignOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Sign Out"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"
+                    android:textColor="#94A3B8"
+                    app:backgroundTint="#1E293B"
+                    app:cornerRadius="10dp"
+                    app:strokeColor="#334155"
+                    app:strokeWidth="1dp" />
+            </LinearLayout>
+
+            <!-- Admin email -->
+            <TextView
+                android:id="@+id/txtAdminEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="admin@gmail.com"
+                android:textSize="12sp"
+                android:textColor="#475569" />
+
+            <!-- Stats row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical">
+
+                <!-- Alerts count -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="@drawable/stat_card_red"
+                    android:padding="14dp"
+                    android:layout_marginEnd="8dp">
+
+                    <TextView
+                        android:id="@+id/txtAlertCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        android:textColor="#EF4444" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Theft Alerts"
+                        android:textSize="11sp"
+                        android:textColor="#94A3B8"
+                        android:layout_marginTop="2dp" />
+                </LinearLayout>
+
+                <!-- Items on shelf -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="@drawable/stat_card_blue"
+                    android:padding="14dp"
+                    android:layout_marginStart="8dp">
+
+                    <TextView
+                        android:id="@+id/txtItemsOnShelf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        android:textColor="#2563EB" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Items Tracked"
+                        android:textSize="11sp"
+                        android:textColor="#94A3B8"
+                        android:layout_marginTop="2dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Scrollable body -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:paddingBottom="32dp"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <!-- ── THEFT ALERTS SECTION ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="🚨  Theft Alerts"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="#0F172A" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnClearAlerts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:text="Clear All"
+                    android:textAllCaps="false"
+                    android:textSize="11sp"
+                    android:textColor="#EF4444"
+                    app:backgroundTint="#FFF1F2"
+                    app:cornerRadius="8dp"
+                    app:strokeColor="#FECACA"
+                    app:strokeWidth="1dp" />
+            </LinearLayout>
+
+            <!-- No alerts state -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardNoAlerts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="32dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="✅"
+                        android:textSize="36sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="No theft alerts"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#0F172A" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="All items accounted for"
+                        android:textSize="12sp"
+                        android:textColor="#94A3B8" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Alerts list container -->
+            <LinearLayout
+                android:id="@+id/alertsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone" />
+
+            <!-- ── INVENTORY SECTION ── -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="10dp"
+                android:text="📦  Live Inventory"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="#0F172A" />
+
+            <!-- Inventory list container -->
+            <LinearLayout
+                android:id="@+id/inventoryContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <!-- ── RECENT SHELF EVENTS ── -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="10dp"
+                android:text="📋  Recent Shelf Events"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="#0F172A" />
+
+            <LinearLayout
+                android:id="@+id/eventsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
