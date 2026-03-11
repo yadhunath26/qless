@@ -90,6 +90,7 @@ class PaymentActivity : AppCompatActivity(), PaymentResultListener {
         btnNewSession.setOnClickListener {
             // Go back to MainActivity fresh
             val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("reset", true)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             startActivity(intent)
             finish()

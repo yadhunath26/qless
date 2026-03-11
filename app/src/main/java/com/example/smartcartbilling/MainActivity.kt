@@ -714,6 +714,14 @@ class MainActivity : AppCompatActivity() {
     // Cleanup
     // ─────────────────────────────────────────
 
+    // Called when MainActivity is brought back to front via FLAG_ACTIVITY_SINGLE_TOP
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        if (intent.getBooleanExtra("reset", false)) {
+            resetSession()
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         for ((_, runnable) in theftRunnables) handler.removeCallbacks(runnable)
