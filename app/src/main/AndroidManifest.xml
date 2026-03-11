@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- CAMERA (REQUIRED for QR scanning) -->
     <uses-permission android:name="android.permission.CAMERA" />
@@ -26,6 +27,12 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
+
+    <!-- Internet (Required for Firebase + Razorpay) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Network state (Required by Razorpay) -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- Optional but recommended -->
     <uses-feature
@@ -54,6 +61,17 @@
         <activity
             android:name=".AdminActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".PaymentActivity"
+            android:exported="false" />
+
+        <!-- Razorpay — tools:replace fixes theme merger conflict -->
+        <activity
+            android:name="com.razorpay.CheckoutActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
+            tools:replace="android:theme" />
 
     </application>
 

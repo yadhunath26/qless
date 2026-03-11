@@ -12,77 +12,124 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:gravity="center_vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <!-- Item icon circle -->
-        <FrameLayout
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/circle_blue_light">
-
-            <TextView
-                android:id="@+id/txtItemIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="📦"
-                android:textSize="20sp" />
-        </FrameLayout>
-
-        <!-- Item name + qty -->
+        <!-- Top row: icon + name/qty + price -->
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginStart="14dp">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
+            <!-- Item icon circle -->
+            <FrameLayout
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/circle_blue_light">
+
+                <TextView
+                    android:id="@+id/txtItemIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="📦"
+                    android:textSize="20sp" />
+            </FrameLayout>
+
+            <!-- Item name + qty -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="14dp">
+
+                <TextView
+                    android:id="@+id/txtItemName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Item Name"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#0F172A" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Qty:"
+                        android:textSize="12sp"
+                        android:textColor="#94A3B8" />
+
+                    <TextView
+                        android:id="@+id/txtItemQty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="1"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#2563EB" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Price -->
             <TextView
-                android:id="@+id/txtItemName"
+                android:id="@+id/txtItemPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Item Name"
+                android:text="Rs --"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="#0F172A" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="4dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Qty:"
-                    android:textSize="12sp"
-                    android:textColor="#94A3B8" />
-
-                <TextView
-                    android:id="@+id/txtItemQty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:text="1"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:textColor="#2563EB" />
-            </LinearLayout>
         </LinearLayout>
 
-        <!-- Price -->
-        <TextView
-            android:id="@+id/txtItemPrice"
-            android:layout_width="wrap_content"
+        <!-- Carbon footprint row -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Rs --"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="#0F172A" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/carbon_bg"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🌱"
+                android:textSize="13sp"
+                android:layout_marginEnd="6dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Carbon Footprint"
+                android:textSize="11sp"
+                android:textColor="#166534" />
+
+            <TextView
+                android:id="@+id/txtItemCarbon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-- kg CO₂"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="#166534" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
