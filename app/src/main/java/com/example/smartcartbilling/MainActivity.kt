@@ -257,6 +257,10 @@ class MainActivity : AppCompatActivity() {
         txtTotalBillHeader.text = "Rs $currentTotal"
         txtTotalBill.text       = "Rs $currentTotal"
         txtSubtotal.text        = "Rs $currentTotal"
+        // Show Razorpay payment ID on success card
+        findViewById<TextView>(R.id.txtPaymentId)?.text =
+            if (lastPaymentId.isNotEmpty()) "ID: $lastPaymentId" else "ID: --"
+
 
         billItemsContainer.removeAllViews()
         val sb = StringBuilder("Items:\n")

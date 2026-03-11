@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F7F8FA">
 
-    <!-- Top header -->
+    <!-- ── Dark header ── -->
     <LinearLayout
         android:id="@+id/billHeader"
         android:layout_width="0dp"
@@ -15,8 +15,8 @@
         android:background="#0F172A"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
-        android:paddingTop="40dp"
-        android:paddingBottom="32dp"
+        android:paddingTop="52dp"
+        android:paddingBottom="28dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CHECKOUT SUMMARY"
+            android:text="CHECKOUT COMPLETE"
             android:textSize="10sp"
             android:letterSpacing="0.16"
             android:textStyle="bold"
@@ -35,17 +35,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:text="Your Bill"
-            android:textSize="34sp"
+            android:textSize="32sp"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
             android:letterSpacing="-0.02" />
 
-        <!-- Total amount -->
+        <!-- Total + paid checkmark -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:gravity="center_vertical">
 
             <LinearLayout
@@ -57,24 +57,25 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="AMOUNT DUE"
+                    android:text="TOTAL PAID"
                     android:textSize="9sp"
                     android:letterSpacing="0.14"
                     android:textColor="#64748B" />
 
+                <!-- ✅ Fixed ID: txtTotal2 matches MainActivity -->
                 <TextView
                     android:id="@+id/txtTotal2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="Rs 0"
-                    android:textSize="36sp"
+                    android:textSize="42sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:letterSpacing="-0.02" />
             </LinearLayout>
 
-            <!-- Paid stamp look -->
+            <!-- Green paid stamp -->
             <FrameLayout
                 android:layout_width="72dp"
                 android:layout_height="72dp"
@@ -92,7 +93,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Bill card body -->
+    <!-- ── Scrollable body ── -->
     <ScrollView
         android:id="@+id/scrollBill"
         android:layout_width="0dp"
@@ -111,7 +112,58 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Receipt card -->
+            <!-- ── Payment success card ── -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#F0FDF4">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="✅"
+                        android:textSize="26sp"
+                        android:layout_marginEnd="14dp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Payment Successful"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#166534" />
+
+                        <!-- Payment ID shown here -->
+                        <TextView
+                            android:id="@+id/txtPaymentId"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="ID: --"
+                            android:textSize="11sp"
+                            android:textColor="#4ADE80"
+                            android:fontFamily="monospace" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ── Receipt card ── -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -125,7 +177,7 @@
                     android:orientation="vertical"
                     android:padding="20dp">
 
-                    <!-- Receipt header row -->
+                    <!-- Column headers -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -136,34 +188,33 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Item"
-                            android:textSize="11sp"
+                            android:text="ITEM"
+                            android:textSize="10sp"
                             android:textStyle="bold"
                             android:textColor="#94A3B8"
-                            android:letterSpacing="0.06" />
+                            android:letterSpacing="0.08" />
 
                         <TextView
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
-                            android:text="Qty"
-                            android:textSize="11sp"
+                            android:text="QTY"
+                            android:textSize="10sp"
                             android:textStyle="bold"
                             android:textColor="#94A3B8"
                             android:gravity="center"
-                            android:letterSpacing="0.06" />
+                            android:letterSpacing="0.08" />
 
                         <TextView
-                            android:layout_width="60dp"
+                            android:layout_width="70dp"
                             android:layout_height="wrap_content"
-                            android:text="Price"
-                            android:textSize="11sp"
+                            android:text="PRICE"
+                            android:textSize="10sp"
                             android:textStyle="bold"
                             android:textColor="#94A3B8"
                             android:gravity="end"
-                            android:letterSpacing="0.06" />
+                            android:letterSpacing="0.08" />
                     </LinearLayout>
 
-                    <!-- Divider -->
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -171,14 +222,13 @@
                         android:layout_marginBottom="6dp"
                         android:background="#F1F5F9" />
 
-                    <!-- Items will be inflated here by MainActivity -->
+                    <!-- Items inflated here -->
                     <LinearLayout
                         android:id="@+id/billItemsContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical" />
 
-                    <!-- Divider before total -->
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -192,7 +242,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:layout_marginBottom="6dp">
+                        android:layout_marginBottom="8dp">
 
                         <TextView
                             android:layout_width="0dp"
@@ -218,7 +268,7 @@
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
                         android:background="@drawable/chip_neutral_bg"
-                        android:padding="12dp">
+                        android:padding="14dp">
 
                         <TextView
                             android:layout_width="0dp"
@@ -241,7 +291,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Time stamp card -->
+            <!-- ── Timestamp card ── -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -258,10 +308,11 @@
                     android:gravity="center_vertical">
 
                     <FrameLayout
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
                         android:background="@drawable/circle_blue_light"
                         android:layout_marginEnd="12dp">
+
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
@@ -295,7 +346,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Hidden items text for PDF logic compatibility -->
+            <!-- Hidden text for PDF compatibility -->
             <TextView
                 android:id="@+id/txtItemsBill"
                 android:layout_width="match_parent"
@@ -307,15 +358,15 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Bottom action bar -->
+    <!-- ── Bottom action bar ── -->
     <LinearLayout
         android:id="@+id/bottomBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="#FFFFFF"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         android:paddingTop="16dp"
         android:paddingBottom="32dp"
         android:elevation="12dp"
@@ -323,7 +374,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Generate PDF Bill Button -->
+        <!-- Download PDF button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnGenerateBill"
             android:layout_width="match_parent"
@@ -340,7 +391,7 @@
             app:iconTint="#FFFFFF"
             app:iconPadding="10dp" />
 
-        <!-- New Session button -->
+        <!-- New session button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNewSession"
             android:layout_width="match_parent"
@@ -349,8 +400,7 @@
             android:text="Start New Session"
             android:textAllCaps="false"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="#0F172A"
+            android:textColor="#64748B"
             app:backgroundTint="#F1F5F9"
             app:cornerRadius="16dp" />
 
