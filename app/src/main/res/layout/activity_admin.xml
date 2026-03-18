@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F7F8FA">
 
-    <!-- Header -->
+    <!-- ── Header ── -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/adminAppBar"
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:paddingTop="52dp"
             android:paddingBottom="20dp">
 
-            <!-- Top row -->
+            <!-- Top row: title + sign out -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,7 +56,6 @@
                         android:letterSpacing="-0.02" />
                 </LinearLayout>
 
-                <!-- Sign out button -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnAdminSignOut"
                     android:layout_width="wrap_content"
@@ -86,10 +85,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical">
+                android:layout_marginTop="20dp">
 
-                <!-- Alerts count -->
+                <!-- Theft alerts stat -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -99,6 +97,28 @@
                     android:padding="14dp"
                     android:layout_marginEnd="8dp">
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="6dp">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_shield_alert"
+                            android:tint="#EF4444"
+                            android:layout_marginEnd="6dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Theft Alerts"
+                            android:textSize="11sp"
+                            android:textColor="#94A3B8" />
+                    </LinearLayout>
+
                     <TextView
                         android:id="@+id/txtAlertCount"
                         android:layout_width="wrap_content"
@@ -107,17 +127,9 @@
                         android:textSize="28sp"
                         android:textStyle="bold"
                         android:textColor="#EF4444" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Theft Alerts"
-                        android:textSize="11sp"
-                        android:textColor="#94A3B8"
-                        android:layout_marginTop="2dp" />
                 </LinearLayout>
 
-                <!-- Items on shelf -->
+                <!-- Items tracked stat -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -127,6 +139,28 @@
                     android:padding="14dp"
                     android:layout_marginStart="8dp">
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="6dp">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_box"
+                            android:tint="#2563EB"
+                            android:layout_marginEnd="6dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Items Tracked"
+                            android:textSize="11sp"
+                            android:textColor="#94A3B8" />
+                    </LinearLayout>
+
                     <TextView
                         android:id="@+id/txtItemsOnShelf"
                         android:layout_width="wrap_content"
@@ -135,20 +169,12 @@
                         android:textSize="28sp"
                         android:textStyle="bold"
                         android:textColor="#2563EB" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Items Tracked"
-                        android:textSize="11sp"
-                        android:textColor="#94A3B8"
-                        android:layout_marginTop="2dp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Scrollable body -->
+    <!-- ── Scrollable body ── -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -160,11 +186,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="16dp"
+            android:paddingTop="20dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp">
 
-            <!-- ── THEFT ALERTS SECTION ── -->
+            <!-- ── THEFT ALERTS SECTION HEADER ── -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -172,11 +198,26 @@
                 android:gravity="center_vertical"
                 android:layout_marginBottom="10dp">
 
+                <!-- Icon + label -->
+                <FrameLayout
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/circle_red_light"
+                    android:layout_marginEnd="10dp">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_shield_alert"
+                        android:tint="#EF4444" />
+                </FrameLayout>
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="🚨  Theft Alerts"
+                    android:text="Theft Alerts"
                     android:textSize="17sp"
                     android:textStyle="bold"
                     android:textColor="#0F172A" />
@@ -213,16 +254,24 @@
                     android:gravity="center"
                     android:padding="32dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="✅"
-                        android:textSize="36sp" />
+                    <!-- Vector checkmark instead of emoji -->
+                    <FrameLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:background="@drawable/circle_green_border">
+
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_check_circle"
+                            android:tint="#16A34A" />
+                    </FrameLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="12dp"
                         android:text="No theft alerts"
                         android:textSize="15sp"
                         android:textStyle="bold"
@@ -238,7 +287,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Alerts list container -->
+            <!-- Alerts list -->
             <LinearLayout
                 android:id="@+id/alertsContainer"
                 android:layout_width="match_parent"
@@ -246,34 +295,75 @@
                 android:orientation="vertical"
                 android:visibility="gone" />
 
-            <!-- ── INVENTORY SECTION ── -->
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- ── INVENTORY SECTION HEADER ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="10dp"
-                android:text="📦  Live Inventory"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                android:textColor="#0F172A" />
+                android:layout_marginBottom="10dp">
 
-            <!-- Inventory list container -->
+                <FrameLayout
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/circle_blue_light"
+                    android:layout_marginEnd="10dp">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_box"
+                        android:tint="#2563EB" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Live Inventory"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="#0F172A" />
+            </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/inventoryContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
 
-            <!-- ── RECENT SHELF EVENTS ── -->
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- ── SHELF EVENTS SECTION HEADER ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="10dp"
-                android:text="📋  Recent Shelf Events"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                android:textColor="#0F172A" />
+                android:layout_marginBottom="10dp">
+
+                <FrameLayout
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/chip_neutral_bg"
+                    android:layout_marginEnd="10dp">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_clipboard"
+                        android:tint="#0F172A" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Recent Shelf Events"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="#0F172A" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/eventsContainer"
