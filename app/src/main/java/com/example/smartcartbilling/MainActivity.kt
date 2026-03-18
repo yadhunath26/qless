@@ -32,6 +32,10 @@ import com.google.mlkit.vision.common.InputImage
 import org.json.JSONArray
 import org.json.JSONObject
 import java.text.SimpleDateFormat
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
+import android.view.animation.DecelerateInterpolator
+import android.view.animation.OvershootInterpolator
 import java.util.*
 
 private const val SCREEN_WELCOME  = 0
@@ -82,6 +86,7 @@ class MainActivity : AppCompatActivity() {
     private val cartPrices  = mutableMapOf<String, Int>()   // name → price per unit (from Firebase)
     private var scanned       = false
     private var currentTotal  = 0
+    private var previousTotal = 0
     private var lastPaymentId = ""
 
     private val SERVICE_UUID = UUID.fromString("12345678-1234-1234-1234-1234567890ab")
@@ -245,10 +250,38 @@ class MainActivity : AppCompatActivity() {
     // Screen Navigation
     // ─────────────────────────────────────────
 
+    // ── Animation 1: Fade + Slide between screens ──
     private fun setScreen(screen: Int) {
-        screenWelcome.visibility = if (screen == SCREEN_WELCOME) View.VISIBLE else View.GONE
-        screenCart.visibility    = if (screen == SCREEN_CART)    View.VISIBLE else View.GONE
-        screenBill.visibility    = if (screen == SCREEN_BILL)    View.VISIBLE else View.GONE
+        val incoming = when (screen) {
+            SCREEN_WELCOME -> screenWelcome
+            SCREEN_CART    -> screenCart
+            SCREEN_BILL    -> screenBill
+            else           -> screenWelcome
+        }
+        val allScreens = listOf(screenWelcome, screenCart, screenBill)
+
+        // Fade out all visible screens
+        allScreens.filter { it.visibility == View.VISIBLE && it != incoming }.forEach { outgoing ->
+            outgoing.animate()
+                .alpha(0f)
+                .translationY(-20f)
+                .setDuration(200)
+                .setInterpolator(DecelerateInterpolator())
+                .withEndAction { outgoing.visibility = View.GONE; outgoing.translationY = 0f }
+                .start()
+        }
+
+        // Fade + slide in the new screen
+        incoming.alpha = 0f
+        incoming.translationY = 40f
+        incoming.visibility = View.VISIBLE
+        incoming.animate()
+            .alpha(1f)
+            .translationY(0f)
+            .setDuration(300)
+            .setStartDelay(150)
+            .setInterpolator(DecelerateInterpolator())
+            .start()
     }
 
     private fun showBillScreen() {
@@ -433,6 +466,15 @@ class MainActivity : AppCompatActivity() {
         ).addOnSuccessListener {
             Log.i("QLess-Theft", "Alert written for $itemName")
         }
+
+        // ── Animation 5: Shake the cart screen to signal theft ──
+        if (screenCart.visibility == View.VISIBLE) {
+            ObjectAnimator.ofFloat(screenCart, "translationX",
+                0f, -18f, 18f, -12f, 12f, -6f, 6f, 0f).apply {
+                duration = 500
+                start()
+            }
+        }
     }
 
     // ─────────────────────────────────────────
@@ -579,8 +621,15 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             "TOTAL" -> {
-                currentTotal      = parts[1].toIntOrNull() ?: currentTotal
-                txtTotalCart.text = "Rs ${parts[1]}"
+                val newTotal = parts[1].toIntOrNull() ?: currentTotal
+                // ── Animation 3: Count-up total amount ──
+                ValueAnimator.ofInt(previousTotal, newTotal).apply {
+                    duration = 400
+                    addUpdateListener { txtTotalCart.text = "Rs ${it.animatedValue}" }
+                    start()
+                }
+                previousTotal = newTotal
+                currentTotal  = newTotal
             }
             "MODE" -> { txtModeCart.text = parts[1] }
         }
@@ -626,8 +675,30 @@ class MainActivity : AppCompatActivity() {
 
                 itemsContainer.addView(card)
                 sb.append("$name x $qty\n")
+
+                // ── Animation 2: Staggered card bounce-in ──
+                val idx = cartItems.keys.indexOf(name)
+                card.alpha = 0f
+                card.translationY = 40f
+                card.animate()
+                    .alpha(1f)
+                    .translationY(0f)
+                    .setStartDelay((idx * 80).toLong())
+                    .setDuration(280)
+                    .setInterpolator(DecelerateInterpolator())
+                    .start()
             }
             txtItemsHidden.text = sb.toString()
+
+            // ── Animation 4: Checkout button pulse ──
+            btnCheckout.animate()
+                .scaleX(1.04f).scaleY(1.04f)
+                .setDuration(160)
+                .withEndAction {
+                    btnCheckout.animate()
+                        .scaleX(1f).scaleY(1f)
+                        .setDuration(160).start()
+                }.start()
         }
     }
 
