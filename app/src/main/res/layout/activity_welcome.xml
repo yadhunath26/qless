@@ -1,57 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="#F8FAFC"> <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#F7F8FA">
-
-    <!-- Top blue accent blob -->
     <View
         android:id="@+id/blobTop"
-        android:layout_width="320dp"
-        android:layout_height="320dp"
-        android:background="@drawable/blob_blue"
-        android:alpha="0.08"
-        android:translationX="80dp"
-        android:translationY="-100dp"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:alpha="0.4"
+        android:background="@drawable/gradient_glow_blue_light"
+        android:translationX="120dp"
+        android:translationY="-150dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Logo / Icon area -->
-    <FrameLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/logoContainer"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="48dp"
-        android:background="@drawable/circle_blue_solid"
-        android:elevation="8dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="64dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="4dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_shopping_cart"
-            android:tint="#FFFFFF" />
-    </FrameLayout>
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="fitCenter" />
+    </androidx.cardview.widget.CardView>
 
-    <!-- Welcome text block -->
     <LinearLayout
         android:id="@+id/textBlock"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginTop="28dp"
-        android:paddingHorizontal="32dp"
+        android:layout_marginTop="32dp"
+        android:paddingHorizontal="40dp"
         app:layout_constraintTop_toBottomOf="@id/logoContainer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -59,40 +55,39 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome to"
-            android:textSize="16sp"
-            android:textColor="#94A3B8"
-            android:letterSpacing="0.04" />
+            android:text="WELCOME TO"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#2563EB"
+            android:letterSpacing="0.2" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:text="QLess"
-            android:textSize="34sp"
+            android:textSize="42sp"
             android:textStyle="bold"
             android:textColor="#0F172A"
-            android:letterSpacing="-0.02" />
+            android:letterSpacing="-0.03" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:text="Your intelligent shopping companion.\nScan, track and checkout in seconds."
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:textColor="#64748B"
             android:gravity="center"
-            android:lineSpacingMultiplier="1.5" />
+            android:lineSpacingExtra="6dp" />
     </LinearLayout>
 
-    <!-- Feature pills row -->
     <LinearLayout
         android:id="@+id/pillsRow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
+        android:layout_marginTop="32dp"
         app:layout_constraintTop_toBottomOf="@id/textBlock"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -100,135 +95,111 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="📷  Scan"
-            android:textSize="12sp"
+            android:text="Scan"
+            android:textSize="13sp"
             android:textColor="#2563EB"
-            android:background="@drawable/chip_blue_bg"
-            android:paddingStart="14dp"
-            android:paddingEnd="14dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:layout_marginEnd="8dp" />
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/bg_pill_active_light"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:layout_marginEnd="12dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="🛒  Track"
-            android:textSize="12sp"
-            android:textColor="#0F172A"
-            android:background="@drawable/chip_neutral_bg"
-            android:paddingStart="14dp"
-            android:paddingEnd="14dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:layout_marginEnd="8dp" />
+            android:text="Track"
+            android:textSize="13sp"
+            android:textColor="#2563EB"
+            android:background="@drawable/bg_pill_active_light"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:layout_marginEnd="12dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="🧾  Bill"
-            android:textSize="12sp"
-            android:textColor="#0F172A"
-            android:background="@drawable/chip_neutral_bg"
-            android:paddingStart="14dp"
-            android:paddingEnd="14dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp" />
+            android:text="Bill"
+            android:textSize="13sp"
+            android:textColor="#2563EB"
+            android:background="@drawable/bg_pill_active_light"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp" />
     </LinearLayout>
 
-    <!-- Divider line -->
-    <View
-        android:id="@+id/dividerLine"
-        android:layout_width="48dp"
-        android:layout_height="3dp"
-        android:layout_marginTop="28dp"
-        android:background="#E2E8F0"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/previewContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginHorizontal="24dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="2dp"
+        app:strokeColor="#E2E8F0"
+        app:strokeWidth="1dp"
         app:layout_constraintTop_toBottomOf="@id/pillsRow"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- Camera preview (hidden until scan starts) -->
-    <androidx.camera.view.PreviewView
-        android:id="@+id/previewView"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:visibility="gone"
-        android:background="#0F172A"
-        app:layout_constraintTop_toBottomOf="@id/dividerLine"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Scanning hint (hidden until scan starts) -->
-    <TextView
-        android:id="@+id/txtScanHint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Point camera at the QR code on your cart"
-        android:textSize="12sp"
-        android:textColor="#64748B"
-        android:gravity="center"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/previewView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Bottom action area -->
-        <LinearLayout
-            android:id="@+id/bottomActions"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="32dp"
-            app:layout_constraintTop_toBottomOf="@id/txtScanHint"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-        <!-- Main scan button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnScanQr"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:text="Start Scanning"
-            android:textAllCaps="false"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            app:backgroundTint="#2563EB"
-            app:cornerRadius="16dp"
-            app:icon="@drawable/ic_qr_code_scanner"
-            app:iconGravity="textStart"
-            app:iconTint="#FFFFFF"
-            app:iconPadding="10dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:text="QLess · Next-Gen Onboarding For Quick Shopping"
-            android:textSize="11sp"
-            android:textColor="#CBD5E1"
-            android:letterSpacing="0.05" />
+            android:paddingBottom="24dp">
 
-    </LinearLayout>
+            <androidx.camera.view.PreviewView
+                android:id="@+id/previewView"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:visibility="gone"
+                android:background="#000000"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Mode text (hidden, used by logic) -->
+            <TextView
+                android:id="@+id/txtScanHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Ready to scan your cart QR code?"
+                android:textSize="14sp"
+                android:textColor="#64748B"
+                app:layout_constraintTop_toBottomOf="@id/previewView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnScanQr"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="24dp"
+                android:text="Start Scanning"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:fontFamily="sans-serif-medium"
+                app:cornerRadius="20dp"
+                app:backgroundTint="#2563EB"
+                app:icon="@drawable/ic_qr_code_scanner"
+                app:iconGravity="textStart"
+                app:layout_constraintTop_toBottomOf="@id/txtScanHint" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
     <TextView
-        android:id="@+id/txtMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mode: --"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="QLess · Next-Gen Onboarding For Quick Shopping"
+        android:textSize="11sp"
+        android:textColor="#CBD5E1"
+        android:letterSpacing="0.1"
+        app:layout_constraintTop_toBottomOf="@id/previewContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView android:id="@+id/txtMode" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>
