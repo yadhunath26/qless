@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var txtLoginStatus: TextView
 
     // ⚠️ Change this to your admin Gmail
-    private val ADMIN_EMAIL = "ckayyappan1@gmail.com"
+    private val ADMIN_EMAIL = "vishnushanu.24748@gmail.com"
 
     private val RC_SIGN_IN = 9001
 

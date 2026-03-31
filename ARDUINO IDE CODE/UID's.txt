@@ -1,0 +1,64 @@
+Scanned UID: 09055B06
+Mode: REMOVE
+
+Scanned UID: F753F105
+REMOVE: Eggs x0
+TOTAL: Rs140
+
+Scanned UID: 95273BCA
+REMOVE: Milk x0
+TOTAL: Rs100
+
+Scanned UID: 2BFCF105
+REMOVE: Bread x0
+TOTAL: Rs55
+
+
+1 : CC990E02
+2 : 6A6CB601
+3 : CD90B701
+4 : 6B08B701
+5 : 6DEEB101
+6 : A4C10902
+7 : E58B0A02
+8 : BDE20D02
+9 : 1A85B501
+
+
+to config 
+
+Scanned UID: CC990E02
+Unknown tag: CC990E02
+  → Copy this UID and add it to items[] array
+
+Scanned UID: 6A6CB601
+Unknown tag: 6A6CB601
+  → Copy this UID and add it to items[] array
+
+Scanned UID: CD90B701
+Unknown tag: CD90B701
+  → Copy this UID and add it to items[] array
+
+Scanned UID: 6B08B701
+Unknown tag: 6B08B701
+  → Copy this UID and add it to items[] array
+
+Scanned UID: 6DEEB101
+Unknown tag: 6DEEB101
+  → Copy this UID and add it to items[] array
+
+Scanned UID: A4C10902
+Unknown tag: A4C10902
+  → Copy this UID and add it to items[] array
+
+Scanned UID: E58B0A02
+Unknown tag: E58B0A02
+  → Copy this UID and add it to items[] array
+
+Scanned UID: BDE20D02
+Unknown tag: BDE20D02
+  → Copy this UID and add it to items[] array
+
+Scanned UID: 1A85B501
+Unknown tag: 1A85B501
+  → Copy this UID and add it to items[] array

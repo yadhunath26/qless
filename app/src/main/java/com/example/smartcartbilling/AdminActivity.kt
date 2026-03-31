@@ -41,7 +41,7 @@ class AdminActivity : AppCompatActivity() {
     private var eventsListener: ValueEventListener? = null
 
     // ── Admin email — must match LoginActivity ──
-    private val ADMIN_EMAIL = "ckayyappan1@gmail.com"
+    private val ADMIN_EMAIL = "vishnushanu.24748@gmail.com"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

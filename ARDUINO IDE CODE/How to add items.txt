@@ -1,0 +1,12 @@
+CartItem items[] = {
+  { "Bread",  "2BFCF105", 45, 0 },
+  { "Eggs",   "F753F105", 60, 0 },
+  { "Rice",   "AABBCCDD", 120, 0 },  // ← just add this
+};
+```
+Everything else — OLED, BLE, save/load — updates automatically.
+
+**Finding UIDs for new tags** — scan any unknown tag and Serial Monitor prints:
+```
+Unknown tag: AABBCCDD
+  → Copy this UID and add it to items[] array
