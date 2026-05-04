@@ -82,6 +82,7 @@ class MainActivity : AppCompatActivity() {
 
     // ── App State ──
     private var bluetoothGatt: BluetoothGatt? = null
+    private var lastMacAddress  = ""  // remembered for auto-reconnect
     private val cartItems   = mutableMapOf<String, Int>()   // name → qty
     private val cartPrices  = mutableMapOf<String, Int>()   // name → price per unit (from Firebase)
     private var scanned       = false
@@ -354,20 +355,65 @@ class MainActivity : AppCompatActivity() {
     // ─────────────────────────────────────────
 
     private fun resetSession() {
+        // Clear all app state
         cartItems.clear()
+        cartPrices.clear()
+        previousTotal = 0
         currentTotal  = 0
         lastPaymentId = ""
         scanned       = false
-        bluetoothGatt?.disconnect()
-        bluetoothGatt?.close()
+
+        // Clear UI
+        refreshCartUI()
+        txtTotalCart.text = "Rs 0"
+
+        // Send CLEAR to ESP32 before disconnecting
+        sendBleClear()
+
+        // Disconnect BLE cleanly
+        isIntentionalDisconnect = true
+        if (ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.BLUETOOTH_CONNECT)
+            == PackageManager.PERMISSION_GRANTED) {
+            bluetoothGatt?.disconnect()
+            bluetoothGatt?.close()
+        }
         bluetoothGatt = null
 
-        previewView.visibility = View.GONE
-        txtScanHint.visibility = View.GONE
-        btnScanQr.text         = "Start Scanning"
-        btnScanQr.isEnabled    = true
+        // Auto-reconnect to same cart if we have a MAC address
+        if (lastMacAddress.isNotEmpty()) {
+            setScreen(SCREEN_CART)
+            txtModeCart.text = "Reconnecting…"
+            // Small delay to let ESP32 finish clearing before we reconnect
+            handler.postDelayed({
+                connectToCart(lastMacAddress)
+            }, 1500)
+        } else {
+            // No MAC known — fall back to QR scan screen
+            previewView.visibility = View.GONE
+            txtScanHint.visibility = View.GONE
+            btnScanQr.text         = "Start Scanning"
+            btnScanQr.isEnabled    = true
+            setScreen(SCREEN_WELCOME)
+        }
+    }
 
-        setScreen(SCREEN_WELCOME)
+    // Extracted connect logic so it can be called from both QR scan and auto-reconnect
+    private fun connectToCart(macAddress: String) {
+        val adapter = BluetoothAdapter.getDefaultAdapter()
+        if (adapter == null || !adapter.isEnabled) {
+            Toast.makeText(this, "Enable Bluetooth", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT)
+            != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "BT permission missing", Toast.LENGTH_SHORT).show()
+            return
+        }
+        val device = adapter.getRemoteDevice(macAddress)
+        bluetoothGatt = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            device.connectGatt(this, true, gattCallback, BluetoothDevice.TRANSPORT_LE)
+        else device.connectGatt(this, true, gattCallback)
     }
 
     // ─────────────────────────────────────────
@@ -530,25 +576,18 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Invalid MAC address", Toast.LENGTH_SHORT).show()
             scanned = false; return
         }
+        lastMacAddress = macAddress  // remember for auto-reconnect after new session
         setScreen(SCREEN_CART)
         txtModeCart.text = "Connecting…"
-        val adapter = BluetoothAdapter.getDefaultAdapter()
-        if (!adapter.isEnabled) {
-            Toast.makeText(this, "Enable Bluetooth", Toast.LENGTH_SHORT).show(); return
-        }
-        val device = adapter.getRemoteDevice(macAddress)
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT)
-            != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this, "BT permission missing", Toast.LENGTH_SHORT).show(); return
-        }
-        bluetoothGatt = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            device.connectGatt(this, false, gattCallback, BluetoothDevice.TRANSPORT_LE)
-        else device.connectGatt(this, false, gattCallback)
+        connectToCart(macAddress)
     }
 
     // ─────────────────────────────────────────
     // BLE Callback
     // ─────────────────────────────────────────
+
+    // Flag set before intentional disconnect so stale callback is ignored
+    private var isIntentionalDisconnect = false
 
     private val gattCallback = object : BluetoothGattCallback() {
         override fun onConnectionStateChange(gatt: BluetoothGatt, status: Int, newState: Int) {
@@ -556,11 +595,28 @@ class MainActivity : AppCompatActivity() {
                     this@MainActivity, Manifest.permission.BLUETOOTH_CONNECT)
                 != PackageManager.PERMISSION_GRANTED) return
             if (newState == BluetoothProfile.STATE_CONNECTED) {
+                isIntentionalDisconnect = false
                 runOnUiThread { txtModeCart.text = "BLE Connected" }
                 gatt.discoverServices()
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
+                // Ignore if we disconnected on purpose (new session / checkout)
+                if (isIntentionalDisconnect) {
+                    isIntentionalDisconnect = false
+                    // Refresh cache BEFORE close so next reconnect works
+                    bluetoothGatt?.let { refreshGattCache(it) }
+                    handler.postDelayed({
+                        bluetoothGatt?.close()
+                        bluetoothGatt = null
+                        Log.i("QLess", "BLE fully closed after intentional disconnect")
+                    }, 200)
+                    return
+                }
                 runOnUiThread { txtModeCart.text = "Disconnected" }
-                bluetoothGatt?.close(); bluetoothGatt = null
+                bluetoothGatt?.let { refreshGattCache(it) }
+                handler.postDelayed({
+                    bluetoothGatt?.close()
+                    bluetoothGatt = null
+                }, 200)
             }
         }
 
@@ -598,6 +654,35 @@ class MainActivity : AppCompatActivity() {
     private fun sendCartEvent(item: String, action: String) {
         database.push().setValue(
             mapOf("item" to item, "action" to action, "time" to ServerValue.TIMESTAMP))
+    }
+
+    // Send CLEAR command to cart ESP32 via BLE
+    // ESP32 receives this and resets all item quantities to 0
+    private fun sendBleClear() {
+        val gatt = bluetoothGatt ?: return
+        if (ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.BLUETOOTH_CONNECT)
+            != PackageManager.PERMISSION_GRANTED) return
+        val characteristic = gatt.getService(SERVICE_UUID)
+            ?.getCharacteristic(CHAR_UUID) ?: return
+        characteristic.value = "CLEAR".toByteArray(Charsets.UTF_8)
+        gatt.writeCharacteristic(characteristic)
+        Log.i("QLess", "Sent CLEAR to cart ESP32")
+    }
+
+    // Clears Android BLE device cache so reconnection works properly
+    // Android caches the old GATT connection state — without this,
+    // reconnecting to the same ESP32 after close() always gets stuck
+    private fun refreshGattCache(gatt: BluetoothGatt): Boolean {
+        return try {
+            val method = gatt.javaClass.getMethod("refresh")
+            val result = method.invoke(gatt) as Boolean
+            Log.i("QLess", "BLE cache refresh: $result")
+            result
+        } catch (e: Exception) {
+            Log.e("QLess", "BLE cache refresh failed: ${e.message}")
+            false
+        }
     }
 
     private fun handleBleData(data: String) {
