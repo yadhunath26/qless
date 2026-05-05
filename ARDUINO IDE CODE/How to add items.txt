@@ -10,3 +10,51 @@ Everything else — OLED, BLE, save/load — updates automatically.
 ```
 Unknown tag: AABBCCDD
   → Copy this UID and add it to items[] array
+
+
+
+WHAT TO UPDATE
+
+Yes exactly! Both need to match. Here's what to update for each new item:
+
+---
+
+**Shelf ESP32 (`qless_shelf_esp32.ino`)**
+```cpp
+Item items[] = {
+  { "Bread",  "2BFCF105", 10, 45 },
+  { "Rice",   "AABBCCDD", 20, 120 }, // ← add here
+};
+```
+Format: `{ "Name", "RFID_UID", stock, price }`
+
+---
+
+**Cart ESP32 (`qless_cart_esp32.ino`)**
+```cpp
+CartItem items[] = {
+  { "Bread",  "2BFCF105", 45, 0 },
+  { "Rice",   "AABBCCDD", 120, 0 }, // ← add here
+};
+```
+Format: `{ "Name", "RFID_UID", price, 0 }`
+
+---
+
+**Android App (`MainActivity.kt` + `PaymentActivity.kt`)**
+```kotlin
+private val carbonFootprint = mapOf(
+    "Bread" to 0.91,
+    "Rice"  to 2.50  // ← add here (both files!)
+)
+```
+
+---
+
+## Important rules
+- **Name must be identical** in all 3 places — spelling and capitalisation must match exactly. `"Rice"` ≠ `"rice"`
+- **Price must match** between shelf and cart ESP32 — mismatch causes wrong total
+- **RFID UID** — scan the new tag, copy UID from Serial Monitor, paste into both ESP32 files
+- **Carbon value** — add to both `MainActivity.kt` AND `PaymentActivity.kt`
+
+The config guide file we made earlier has all this written down too. 🚀

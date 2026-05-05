@@ -100,7 +100,11 @@ class MainActivity : AppCompatActivity() {
         "Eggs"   to 0.45,   // kg CO2 per egg (approx)
         "Milk"   to 1.35,   // kg CO2 per litre
         "Butter" to 2.79,   // kg CO2 per 250g pack
-        "Jam"    to 0.50    // kg CO2 per jar
+        "Jam"    to 0.50,    // kg CO2 per jar
+        "Kinder Joy"  to 0.30,  // approx (plastic + chocolate)
+        "Bourbon"     to 0.20,  // biscuits
+        "Dairy Milk"  to 0.25,  // chocolate bar
+        "Sugar"       to 0.80   // per kg (refined sugar avg)
     )
 
     // ── Anti-Theft ──

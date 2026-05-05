@@ -45,11 +45,15 @@ struct Item {
 /* =============== INVENTORY ===============
    ⚠️ Update UIDs to match your actual RFID tags */
 Item items[] = {
-  { "Bread",  "2BFCF105", 10, 90,  false },
-  { "Eggs",   "F753F105", 12, 60,  false },
-  { "Milk",   "95273BCA", 8,  40,  false },
-  { "Butter", "FA1156D0", 5,  80,  false },
-  { "Jam",    "B51B2207", 6,  90,  false }
+  { "Bread",       "2BFCF105", 10, 45, false },
+  { "Eggs",        "F753F105", 12, 60, false },
+  { "Milk",        "6DEEB101", 8,  40, false },
+  { "Butter",      "A4C10902", 5,  55, false },
+  { "Jam",         "6B08B701", 6,  90, false },
+  { "Kinder Joy",  "CC990E02", 10, 45, false },
+  { "Bourbon",     "6A6CB601", 15, 10, false },
+  { "Dairy Milk",  "CD90B701", 20, 10, false },
+  { "Sugar",       "E58B0A02", 25, 30, false }
 };
 const int ITEM_COUNT = sizeof(items) / sizeof(items[0]);
 

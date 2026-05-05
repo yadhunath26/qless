@@ -14,13 +14,13 @@ REMOVE: Bread x0
 TOTAL: Rs55
 
 
-1 : CC990E02
-2 : 6A6CB601
-3 : CD90B701
-4 : 6B08B701
-5 : 6DEEB101
-6 : A4C10902
-7 : E58B0A02
+1 : CC990E02    - kinderjoy
+2 : 6A6CB601    - bourbon
+3 : CD90B701	- diary milk
+4 : 6B08B701    - Jam
+5 : 6DEEB101    - milk
+6 : A4C10902    - butter
+7 : E58B0A02    - sugar
 8 : BDE20D02
 9 : 1A85B501
 
